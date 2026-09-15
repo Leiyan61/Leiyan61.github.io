@@ -327,9 +327,19 @@ table:not(.hljs-ln) td:nth-child(odd) {
     width: 900px;
 }
 
+/* giscus 的 iframe 必须解除主题的限制。
+   主题 main.css 里有一条：
+       .content img, .content video, .content audio, .content iframe { max-width: 75% }
+   那是为文章里的图片/视频留边距用的，但评论区也是 iframe，会被一起压到 75% 宽，
+   再靠 margin:auto 居中，看起来就比文章卡片窄一截。
+   注意：只写 width:100% 不够 —— width 和 max-width 同时存在时取较小值，
+   必须把 max-width 也一并覆盖。 */
 #comment .giscus,
 #comment .giscus-frame {
     border: none;
+    display: block;
+    margin: 0;
+    max-width: 100%;
     width: 100%;
 }
 
