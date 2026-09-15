@@ -263,12 +263,6 @@ for char in password:
 
 因为它是我的第一份代码。以后写的东西多了，可能想不起来当初是怎么从零开始的 —— 留着它，能提醒我自己，`NameError` 和拼写错误是每个人都会经历的事。
 
-## 最后
-
-如果你也在写第一个脚本，我的建议很简单：**写一个你自己觉得有用的东西，然后拿各种奇怪的输入去折磨它。**
-
-bug 不会让你显得水平低。**能从 bug 里总结出"下次怎么避免"，才是真的学到东西了。**
-
 ---
 
 *相关代码：[python-learning/check_pwd.py](https://github.com/Tprme/python-learning/blob/main/check_pwd.py)*
