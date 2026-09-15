@@ -196,8 +196,9 @@ giscus:
   reactionsEnabled: 1
   emitMetadata: 0
   inputPosition: bottom
-  # preferred_color_scheme：跟随访客系统的深色/浅色偏好
-  theme: preferred_color_scheme
+  # 用 light 而不是 preferred_color_scheme：
+  # 本站是固定浅色设计，跟随系统偏好会出现「浅色站点里嵌一块深色评论区」的割裂感。
+  theme: light
   lang: zh-CN
 
 # Gitalk
