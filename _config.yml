@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 哈理工 Birkenwald 战队周报
-subtitle: 'Writeup · 赛事复盘 · 战队动态'
-description: '哈理工 Birkenwald 战队官方博客，持续输出每周战报与题目 Writeup'
-keywords: CTF, Writeup, 网络安全, 战队周报, Birkenwald, 哈理工
-author: 哈理工 Birkenwald
+title: leiyan
+subtitle: 'CTF | 记录成长'
+description: 'leiyan 的个人博客 —— CTF Writeup、DevOps 与日常记录'
+keywords: CTF, Writeup, DevOps, Pwn, 网络安全, leiyan
+author: leiyan
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
@@ -67,7 +67,7 @@ index_generator:
   order_by: -date
 
 # Category & Tag
-default_category: 周报
+default_category: 随笔
 category_map:
 tag_map:
 
@@ -89,7 +89,15 @@ exclude:
 ignore:
 
 # Extensions
-theme: ZenMind
+theme: loststar
+
+# 归档按年份/月份分组会显得很乱，关掉（LostStar 主题建议）
+archive_generator:
+  enabled: true
+  per_page: 0
+  yearly: false
+  monthly: false
+  daily: false
 
 # Deployment
 ## 本博客用 GitHub Actions 自动部署（见 .github/workflows/deploy.yml），

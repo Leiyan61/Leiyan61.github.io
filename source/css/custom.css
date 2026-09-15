@@ -1,0 +1,375 @@
+/* ============================================================
+   leiyan 的个人博客 · 配色覆盖
+   ------------------------------------------------------------
+   主题默认是「米白底 #fffdfa + 墨绿字 #1e3e3f + 金黄导航 #fff9e3」，
+   这里全部换成冷调极简白：中性灰白底 + 板岩蓝灰字 + 蓝色点缀。
+   只覆盖颜色相关属性，不动任何布局尺寸，避免破坏主题结构。
+   ============================================================ */
+
+:root {
+    --ly-bg: #f7f8fa;
+    --ly-surface: #ffffff;
+    --ly-text: #1f2933;
+    --ly-text-soft: #66727f;
+    --ly-accent: #3b82f6;
+    --ly-accent-soft: #e8efff;
+    --ly-border: #e6e9ef;
+    --ly-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 6px 20px rgba(16, 24, 40, 0.06);
+    --ly-shadow-hover: 0 2px 4px rgba(16, 24, 40, 0.05), 0 12px 32px rgba(16, 24, 40, 0.1);
+}
+
+/* ---------- 全局底色与文字 ---------- */
+body {
+    background: var(--ly-bg);
+    color: var(--ly-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--ly-text);
+}
+
+a {
+    color: var(--ly-accent);
+}
+
+/* ---------- 加载页 ---------- */
+/* 渐进增强：默认隐藏。
+   若 cdnjs 上的 Vue 加载失败（国内网络可能发生），加载层会永远盖住页面，
+   访客只能看到一张卡死的"加载中"。这里默认隐藏，Vue 挂载后再由它控制显隐，
+   这样即使 JS 没加载，正文也照常可见。 */
+#loading {
+    display: none;
+    background: var(--ly-bg);
+}
+
+/* Vue 挂载后会操作内联 display，此时让加载层正常工作 */
+#loading[style*="display: flex"],
+#loading[style*="display:flex"],
+#loading[style*="display: block"],
+#loading[style*="display:block"] {
+    display: flex !important;
+}
+
+#loading-circle {
+    border-color: var(--ly-accent-soft);
+}
+
+/* ---------- 顶部导航：白底毛玻璃 ---------- */
+#menu {
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    box-shadow: 0 1px 0 var(--ly-border), 0 4px 16px rgba(16, 24, 40, 0.05);
+}
+
+/* 注意：主题用的是 #menu #desktop-menu a 这种高优先级选择器，
+   必须写到同等或更高优先级才能覆盖掉默认的深棕 #382615 */
+#menu #desktop-menu .title,
+#menu #desktop-menu a,
+#menu #mobile-menu .title,
+#menu #mobile-menu .items a,
+#menu a,
+#menu a:visited {
+    color: var(--ly-text);
+}
+
+#menu #desktop-menu a:hover,
+#menu #mobile-menu .items a:hover,
+#menu a:hover {
+    color: var(--ly-accent);
+}
+
+/* ---------- 文章卡片：去掉重阴影，改细边框 + 轻阴影 ---------- */
+#home-posts .post,
+.article {
+    border: 1px solid var(--ly-border);
+    box-shadow: var(--ly-shadow);
+}
+
+#home-posts .post:hover {
+    box-shadow: var(--ly-shadow-hover);
+    border-color: #d7dde8;
+}
+
+#home-posts .post .category-and-date,
+.article .info .category,
+.article .info .tags {
+    color: var(--ly-text-soft);
+}
+
+/* ---------- 个人资料卡 ---------- */
+#home-card #card-div {
+    background: var(--ly-surface);
+    border: 1px solid var(--ly-border);
+    box-shadow: var(--ly-shadow);
+}
+
+#home-card #card-div .avatar {
+    border-color: var(--ly-border);
+}
+
+/* ---------- 页脚 ---------- */
+#footer #footer-wrap {
+    border-top-color: var(--ly-border);
+    color: var(--ly-text-soft);
+}
+
+#footer #footer-icon {
+    color: var(--ly-accent);
+}
+
+/* ---------- 正文元素 ---------- */
+blockquote {
+    background: var(--ly-accent-soft);
+    border-left: 3px solid var(--ly-accent);
+    color: var(--ly-text);
+}
+
+code {
+    background: #eef1f6;
+    color: #b3344d;
+}
+
+pre code {
+    color: inherit;
+}
+
+/* 表格：冷灰斑马纹，去掉原来的天蓝 */
+table:not(.hljs-ln) th {
+    background: #eef1f6;
+    color: var(--ly-text);
+}
+
+table:not(.hljs-ln) td:nth-child(even) {
+    background: #fafbfc;
+}
+
+table:not(.hljs-ln) td:nth-child(odd) {
+    background: #ffffff;
+}
+
+/* ---------- 归档页分类/标签胶囊 ---------- */
+#archives .categories-tags span a:hover {
+    background: var(--ly-accent-soft);
+    border-color: #c7d9fb;
+    color: var(--ly-accent);
+}
+
+/* ---------- 滚动条 ---------- */
+* {
+    scrollbar-color: #c3ccdb transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #c3ccdb;
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #a9b4c7;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ---------- 首屏：左右分栏 ----------
+   右侧：照片完整显示（不裁切），靠右对齐
+   左侧：渐变留白，放标题
+   底下再垫一层模糊放大的同图，避免右侧照片边缘生硬 */
+#home-head {
+    position: relative;
+}
+
+/* 左侧渐变底：深蓝灰，和照片里的天空/树林色调呼应。
+   最后一层是「向页面底色渐隐」——首屏底部必须过渡到内容区的近白色(#f7f8fa)，
+   否则深色首屏和白底内容区之间会留一条硬接缝。 */
+#home-head::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            100deg,
+            #1d2a38 0%,
+            #22313f 38%,
+            #2a3b49 52%,
+            rgba(42, 59, 73, 0.55) 60%,
+            rgba(42, 59, 73, 0) 70%
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(247, 248, 250, 0) 0%,
+            rgba(247, 248, 250, 0) 86%,
+            rgba(247, 248, 250, 0.55) 94%,
+            rgba(247, 248, 250, 1) 100%
+        );
+    z-index: -1;
+    pointer-events: none;
+}
+
+#home-head #home-background {
+    /* 照片改用独立的 <img id="home-photo"> 渲染（见下面），
+       这里只留模糊衬底用的背景图，不再直接显示照片。 */
+    background-image: none !important;
+    filter: none;
+}
+
+/* ---------- 首屏照片本体 ----------
+   关键：只约束一个维度，另一个由图片比例自然决定，尺寸才唯一确定。
+   这里约束 height:100vh，宽度 = 高度 × 图片宽高比(0.771) 自动得出。
+   如果同时写 width 和 max-height，哪个先触发会随窗口比例变化，
+   照片实际宽度就会和预期不符，边缘羽化(mask)随之错位。 */
+#home-head #home-photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: auto;
+    object-fit: contain;
+    object-position: right center;
+    z-index: -1;
+    pointer-events: none;
+
+    /* 边缘羽化：左、上、下自然淡出，右侧贴屏幕边保持清晰。
+       注意：照片高度=视口高度，所以上下边缘就在 0%/100%，
+       渐变范围必须往内收，否则羽化落不到照片上。 */
+    -webkit-mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.5) 6%, #000 22%),
+        linear-gradient(to bottom, transparent 0%, #000 11%, #000 84%, transparent 100%);
+    mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.5) 6%, #000 22%),
+        linear-gradient(to bottom, transparent 0%, #000 11%, #000 84%, transparent 100%);
+    /* 两张 mask 取交集：只有同时不透明的地方才显示 */
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+}
+
+/* 模糊放大的同图铺满首屏做底，让照片边缘自然过渡 */
+#home-head::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--ly-bg-image);
+    background-size: cover;
+    background-position: center center;
+    filter: blur(30px) saturate(115%) brightness(0.62);
+    transform: scale(1.12);
+    z-index: -2;
+}
+
+/* 只在照片区域压一层暗角，左侧留白不需要 */
+#home-head #home-background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(12, 18, 28, 0.62) 0%,
+        rgba(12, 18, 28, 0.16) 42%,
+        rgba(12, 18, 28, 0) 72%
+    );
+}
+
+/* 标题移到左侧留白区 */
+#home-head #home-info {
+    width: 50%;
+    height: 100vh;
+    margin: 0;
+    padding: 0 0 0 7vw;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+#home-head #home-info .info {
+    width: auto;
+    height: auto;
+    margin: 0;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+#home-head #home-info .info .wrap h1,
+#home-head #home-info .info .wrap h3,
+#home-head #home-info .info .wrap h5 {
+    color: #ffffff;
+    text-shadow: 0 2px 14px rgba(8, 14, 22, 0.5);
+}
+
+#home-head #home-info .info .wrap h1 {
+    font-size: 64px;
+    letter-spacing: 0.02em;
+    margin-bottom: 14px;
+}
+
+#home-head #home-info .info .wrap h3 {
+    font-size: 22px;
+    font-weight: 500;
+    opacity: 0.86;
+}
+
+/* 去掉原来为纯色背景加的白色半透明底框 */
+#home-head #home-info .info .wrap {
+    background: transparent;
+    border-radius: 0;
+    backdrop-filter: none;
+}
+
+/* 主题的白色星形装饰是为深色纯色背景设计的，这里不需要 */
+#home-head #home-info .loop {
+    display: none !important;
+}
+
+/* 窄屏改成上下布局：上面留白放标题，下面放照片 */
+@media (max-width: 767px) {
+    #home-head::after {
+        background: linear-gradient(
+            to bottom,
+            #1d2a38 0%,
+            #22313f 34%,
+            rgba(42, 59, 73, 0.6) 46%,
+            rgba(42, 59, 73, 0) 58%
+        );
+    }
+
+    /* 手机改成坚屏堆叠：标题在上，照片铺满下半屏宽度 */
+    #home-head #home-photo {
+        top: auto;
+        bottom: 0;
+        right: 0;
+        /* 窄屏反转约束维度：约束宽度，高度自适应 */
+        height: auto;
+        max-height: 60vh;
+        width: 100vw;
+        object-position: center bottom;
+        -webkit-mask-image:
+            linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 8%, #000 30%),
+            linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+        mask-image:
+            linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 8%, #000 30%),
+            linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    }
+
+    #home-head #home-info {
+        width: 100%;
+        height: 100vh;
+        padding: 0 8vw;
+        align-items: flex-start;
+        padding-top: 20vh;
+    }
+
+    #home-head #home-info .info .wrap h1 {
+        font-size: 44px;
+    }
+}
+
+/* ---------- 首页文章区定位 ----------
+   主题的 JS 滚动时会动态设置 #home-posts-wrap 的 top 做视差。
+   这里把它固定为跟随文档流，避免出现首屏之后内容被推到很远的位置。 */
+#home-posts-wrap {
+    position: relative;
+    top: 0 !important;
+}

@@ -1,0 +1,251 @@
+# ===== leiyan 的个人博客 · LostStar 主题配置 =====
+# 主题基于 ParticleX / Particle（MIT），作者 thatnghiep-dev
+
+# 头像（注意：不要叫 avatar.jpg，主题自带的同名文件会覆盖 site/source 里的版本）
+avatar: /images/me.jpg
+
+# 首页背景图（竖版原图，配合 CSS 的 contain 完整显示）
+# 同样避免与主题自带的 background.jpg / bg-main.jpg 重名
+background:
+  - /images/hero.jpg
+
+# 加载动画
+loading: /images/loading.gif
+
+# ---------- 配色系统 ----------
+# 自己的一套冷调极简配色：白底 + 板岩灰字 + 蓝紫点缀
+# （主题默认是米白 #fffdfa + 墨绿 #1e3e3f + 金黄导航，这里全部换掉）
+taxonomy_styles:
+  enable: true
+
+  defaults:
+    post:
+      bg: "#ffffff"
+      text: "#1f2933"
+    category:
+      bg: "#eef2fb"
+      text: "#4a5568"
+    tag:
+      bg: "#eef2fb"
+      text: "#4a5568"
+    effects:
+      outline:
+        enable: false
+        color: "#1f293315"
+        width: "1px"
+      spark:
+        enable: false
+        color: "#ffffff"
+        blur: "8px"
+        opacity: 0.35
+        duration: "2.6s"
+
+  # 按分类定制配色：每个分类有自己的一张卡片底色
+  categories:
+    "周报":
+      post:
+        bg: "#f4f8ff"
+        text: "#1f2933"
+      category:
+        bg: "#dbe7ff"
+        text: "#24405f"
+      tag_default:
+        bg: "#e8efff"
+        text: "#24405f"
+      effects:
+        outline:
+          enable: true
+          color: "#3b82f633"
+          width: "1px"
+        spark:
+          enable: false
+    "Writeup":
+      post:
+        bg: "#f2fbf7"
+        text: "#14342b"
+      category:
+        bg: "#cdeee0"
+        text: "#14432f"
+      tag_default:
+        bg: "#e0f5ea"
+        text: "#14432f"
+      effects:
+        outline:
+          enable: false
+        spark:
+          enable: false
+    "随笔":
+      post:
+        bg: "#fbf8ff"
+        text: "#2a2338"
+      category:
+        bg: "#e4dbf7"
+        text: "#33265c"
+      tag_default:
+        bg: "#eee8fb"
+        text: "#33265c"
+      effects:
+        outline:
+          enable: false
+        spark:
+          enable: false
+
+  tags:
+    "题解":
+      bg: "#d8ecff"
+      text: "#1c3d5a"
+
+# 主题图标使用 Font Awesome 6
+# https://fontawesome.com
+
+# 顶部导航菜单
+menu:
+  Home:
+    name: house
+    theme: solid
+    link: /
+  About:
+    name: id-card
+    theme: solid
+    link: /about
+  Archives:
+    name: box-archive
+    theme: solid
+    link: /archives
+  Categories:
+    name: bookmark
+    theme: solid
+    link: /categories
+  Tags:
+    name: tags
+    theme: solid
+    link: /tags
+
+# 侧边个人资料卡
+card:
+  enable: true
+  description: |
+    总有人在背后议论我
+    因为我的十九年
+    比他们一辈子活的都精彩
+  iconLinks:
+    GitHub:
+      name: github
+      theme: brands
+      link: https://github.com/Leiyan61
+  friendLinks:
+    CTF Wiki: https://ctf-wiki.org/
+
+# 页脚
+footer:
+  since: 2026
+  copyright:
+    name: leiyan
+    handle: Leiyan61
+  ICP:
+    enable: false
+    code:
+    link:
+
+# Polyfill（浏览器兼容垫片）
+polyfill:
+  enable: true
+  features:
+    - default
+
+# 代码高亮
+highlight:
+  enable: true
+  style: github
+
+# 数学公式
+math:
+  enable: false
+
+# 图片灯箱预览
+preview:
+  enable: true
+
+# 星空特效（极简风格关掉，这是与参考站的一个明显区分点）
+stars:
+  enable: false
+
+# 文章加密
+crypto:
+  enable: false
+
+# 归档页本地搜索
+search:
+  enable: true
+
+# ---------- 评论系统（只启用一种） ----------
+# giscus：基于 GitHub Discussions，免费无需自建服务
+giscus:
+  enable: false
+  src: https://giscus.app/client.js
+  repo:
+  repoID:
+  category:
+  categoryID:
+  mapping: pathname
+  strict: 0
+  reactionsEnabled: 1
+  emitMetadata: 0
+  inputPosition: bottom
+  theme: preferred_color_scheme
+  lang: zh-CN
+
+# Gitalk
+gitalk:
+  enable: false
+  clientID:
+  clientSecret:
+  repo:
+  owner:
+  admin:
+  language: zh-CN
+  proxy:
+
+# Waline
+waline:
+  enable: false
+  serverURL:
+  locale:
+  commentCount: true
+  pageview: false
+  emoji:
+    - https://unpkg.com/@waline/emojis@1.2.0/weibo
+    - https://unpkg.com/@waline/emojis@1.2.0/bilibili
+  meta:
+    - nick
+    - mail
+    - link
+  requiredMeta:
+    - nick
+  lang: zh-CN
+  wordLimit: 0
+  login: enable
+  pageSize: 10
+
+# Twikoo
+twikoo:
+  enable: false
+  envID:
+  region:
+  path: location.pathname
+  lang: zh-CN
+
+# ---------- 界面文案（全部改为中文） ----------
+i18n:
+  read_more: 阅读全文
+  loading_title: 加载中
+  loading_message: 正在打开页面…
+  crypto_placeholder: 这篇文章已加密，请输入密码。
+
+# SEO
+seo:
+  default_image: /images/me.jpg
+  twitter_site:
+  twitter_id:
+  fb_app_id:
+  fb_admins:
