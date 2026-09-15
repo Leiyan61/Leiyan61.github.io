@@ -1,4 +1,4 @@
-# ===== leiyan 的个人博客 · LostStar 主题配置 =====
+# ===== Tprme 的个人博客 · LostStar 主题配置 =====
 # 主题基于 ParticleX / Particle（MIT），作者 thatnghiep-dev
 
 # 头像（注意：不要叫 avatar.jpg，主题自带的同名文件会覆盖 site/source 里的版本）
@@ -140,7 +140,7 @@ card:
 footer:
   since: 2026
   copyright:
-    name: leiyan
+    name: Tprme
     handle: Leiyan61
   ICP:
     enable: false

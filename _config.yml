@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: leiyan
+title: Tprme
 subtitle: 'CTF | 记录成长'
-description: 'leiyan 的个人博客 —— CTF Writeup、DevOps 与日常记录'
-keywords: CTF, Writeup, DevOps, Pwn, 网络安全, leiyan
-author: leiyan
+description: 'Tprme 的个人博客 —— CTF Writeup、DevOps 与日常记录'
+keywords: CTF, Writeup, DevOps, Pwn, 网络安全, Tprme
+author: Tprme
 language: zh-CN
 timezone: 'Asia/Shanghai'
 
