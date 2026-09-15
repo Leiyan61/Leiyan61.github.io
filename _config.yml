@@ -12,8 +12,8 @@ language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
-## 仓库名必须是 Leiyan61.github.io，否则站点会被放到子路径下导致样式 404
-url: https://Leiyan61.github.io
+## 仓库名必须是 <用户名>.github.io，否则站点会被放到子路径下导致样式 404
+url: https://Tprme.github.io
 permalink: posts/:year/:month/:title/
 permalink_defaults:
 pretty_urls:

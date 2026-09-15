@@ -1,0 +1,21 @@
+<%
+    /* 归档 / 分类 / 标签这类页面原本没有 h1，
+       对无障碍（屏幕阅读器）和 SEO 都不利，这里补一个语义化的页面主标题。
+       支持主题 i18n 覆盖，默认值即中文。 */
+    const i18n = theme.i18n || {};
+    let heading = '';
+    if (page.type === 'categories') {
+        heading = i18n.heading_categories || '分类';
+    } else if (page.type === 'tags') {
+        heading = i18n.heading_tags || '标签';
+    } else if (is_category()) {
+        heading = (i18n.heading_category_prefix || '分类：') + page.category;
+    } else if (is_tag()) {
+        heading = (i18n.heading_tag_prefix || '标签：') + page.tag;
+    } else if (is_archive()) {
+        heading = i18n.heading_archives || '归档';
+    }
+%>
+<% if (heading) { %>
+<h1 id="page-heading"><%= heading %></h1>
+<% } %>

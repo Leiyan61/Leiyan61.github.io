@@ -84,7 +84,7 @@
                 <div id="loading-circle">
                     <h2><%- (theme.i18n && theme.i18n.loading_title) || 'LOADING' %></h2>
                     <p><%- (theme.i18n && theme.i18n.loading_message) || 'Please wait a moment...' %></p>
-                    <img src="<%- url_for(theme.loading) %>" />
+                    <img src="<%- url_for(theme.loading) %>" alt="<%- (theme.i18n && theme.i18n.loading_alt) || 'Loading' %>" />
                 </div>
             </div>
         </transition>
@@ -96,7 +96,7 @@
         <% if (theme.preview.enable) { %>
         <transition name="fade">
             <div id="preview" ref="preview" v-show="previewShow">
-                <img id="preview-content" ref="previewContent" />
+                <img id="preview-content" ref="previewContent" alt="<%- (theme.i18n && theme.i18n.preview_alt) || 'Image preview' %>" />
             </div>
         </transition>
         <% } %>

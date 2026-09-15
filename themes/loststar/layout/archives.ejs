@@ -7,6 +7,7 @@
     };
 %>
 <div id="archives">
+    <%- partial("_partial/page-heading") %>
     <% if (theme.search.enable) { %>
     <input id="search-bar" class="input" placeholder="Search" v-model="rawSearch" />
     <% } %>

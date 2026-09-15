@@ -14,29 +14,63 @@ mixins.highlight = {
             let codes = document.querySelectorAll("pre");
             for (let i of codes) {
                 let code = i.textContent;
-                let language = [...i.classList, ...i.firstChild.classList][0] || "plaintext";
-                let highlighted;
-                try {
-                    highlighted = hljs.highlight(code, { language }).value;
-                } catch {
-                    highlighted = code;
+
+                /* ------------------------------------------------------------
+                   本站的代码块在服务端渲染时已经带上了高亮标记
+                   （<span class="line"> 包住每一行，行内是 .keyword / .string 等），
+                   配色由 source/css/custom.css 提供。
+                   这种情况下不能再让 hljs 重新高亮：一来服务端没有输出
+                   language-xxx，语言名取不到；二来 textContent 会丢掉行结构，
+                   重高亮反而把多行代码压成一行。
+                   所以这里只补上「语言标签」和「复制」按钮，保留原有排版。
+                   ------------------------------------------------------------ */
+                let serverHighlighted = i.querySelector(".line") !== null;
+                let language = "";
+                if (serverHighlighted) {
+                    // 从代码块的 class（如 language-python）里取语言名，取不到就不显示
+                    let cls = [...i.classList].find((c) => c.startsWith("language-"));
+                    language = cls ? cls.replace("language-", "") : "";
+                } else {
+                    language = [...i.classList, ...(i.firstChild ? i.firstChild.classList : [])][0] || "plaintext";
+                    let highlighted;
+                    try {
+                        highlighted = hljs.highlight(code, { language }).value;
+                    } catch {
+                        highlighted = code;
+                    }
+                    i.innerHTML = `<div class="code-content hljs">${highlighted}</div>`;
+                    let content = i.querySelector(".code-content");
+                    hljs.lineNumbersBlock(content, { singleLine: true });
                 }
-                i.innerHTML = `
-                <div class="code-content hljs">${highlighted}</div>
-                <div class="language">${language}</div>
-                <div class="copycode">
-                    <i class="fa-solid fa-copy fa-fw"></i>
-                    <i class="fa-solid fa-check fa-fw"></i>
-                </div>
+
+                // 用 .code-block 包住 <pre>，语言标签与复制按钮定位在它上面，
+                // 这样它们不会被划入代码选区、也不会被一起复制
+                let wrapper = document.createElement("div");
+                wrapper.className = "code-block";
+                i.parentNode.insertBefore(wrapper, i);
+                wrapper.appendChild(i);
+
+                let toolbar = document.createElement("div");
+                toolbar.className = "code-toolbar";
+                toolbar.innerHTML = `
+                    ${language ? `<div class="language">${language}</div>` : ""}
+                    <div class="copycode" title="复制代码">
+                        <i class="fa-solid fa-copy fa-fw"></i>
+                        <i class="fa-solid fa-check fa-fw"></i>
+                    </div>
                 `;
-                let content = i.querySelector(".code-content");
-                hljs.lineNumbersBlock(content, { singleLine: true });
-                let copycode = i.querySelector(".copycode");
+                wrapper.insertBefore(toolbar, i);
+
+                let copycode = toolbar.querySelector(".copycode");
                 copycode.addEventListener("click", async () => {
                     if (this.copying) return;
                     this.copying = true;
                     copycode.classList.add("copied");
-                    await navigator.clipboard.writeText(code);
+                    try {
+                        await navigator.clipboard.writeText(code);
+                    } catch {
+                        // 剪贴板不可用（非 https 或权限被拒）时静默失败
+                    }
                     await this.sleep(1000);
                     copycode.classList.remove("copied");
                     this.copying = false;

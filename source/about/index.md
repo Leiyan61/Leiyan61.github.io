@@ -21,7 +21,7 @@ Tprme。
 
 ## 找到我
 
-- GitHub：<https://github.com/Leiyan61>
+- GitHub：<https://github.com/Tprme>
 - CTF Wiki：<https://ctf-wiki.org/>
 
 ## 关于本站

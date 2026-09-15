@@ -16,12 +16,178 @@
     --ly-border: #e6e9ef;
     --ly-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 6px 20px rgba(16, 24, 40, 0.06);
     --ly-shadow-hover: 0 2px 4px rgba(16, 24, 40, 0.05), 0 12px 32px rgba(16, 24, 40, 0.1);
+
+    /* 字体栈：优先系统自带字体。
+       原主题从 Google Fonts 加载 Lexend / Noto Sans SC / Fira Code，
+       但 fonts.googleapis.com 在国内不可达，会导致字体退化并拖慢首屏。
+       改用系统字体：中文在各平台都有质量不错的默认字体，且零网络请求。 */
+    --ly-font-sans:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC",
+        Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji";
+    --ly-font-mono:
+        ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+        "Liberation Mono", "Courier New", "Microsoft YaHei", monospace;
 }
 
-/* ---------- 全局底色与文字 ---------- */
+/* ---------- 代码块语法高亮 ----------
+   背景：站点的代码块由服务端渲染时就带上了高亮标记，生成的 class 是
+   不带前缀的 .keyword / .string / .number 等（见 hexo-util 的 highlight），
+   而主题的客户端脚本会因为 <pre> 里没有 language-xxx 而拿 "line" 当语言名、
+   调用 hljs.highlight() 抛错，还会把多行代码压成一行。
+   处理方式：js/lib/highlight.js 改为「已有服务端高亮的块不再重高亮」，
+   配色则在下面直接给这些服务端 class 上色（GitHub Light 风格）。 */
+.code-block .keyword,
+.code-block .built_in,
+.code-block .literal,
+.code-block .type {
+    color: #cf222e;
+}
+
+.code-block .string,
+.code-block .regexp,
+.code-block .char {
+    color: #0a3069;
+}
+
+.code-block .number,
+.code-block .symbol,
+.code-block .bullet {
+    color: #0550ae;
+}
+
+.code-block .comment,
+.code-block .quote,
+.code-block .doctag {
+    color: #6e7781;
+    font-style: italic;
+}
+
+.code-block .title,
+.code-block .function,
+.code-block .section,
+.code-block .name {
+    color: #8250df;
+}
+
+.code-block .attr,
+.code-block .attribute,
+.code-block .property,
+.code-block .variable,
+.code-block .template-variable {
+    color: #953800;
+}
+
+.code-block .meta,
+.code-block .tag,
+.code-block .selector-tag {
+    color: #116329;
+}
+
+.code-block .addition {
+    color: #116329;
+    background: #dafbe1;
+}
+
+.code-block .deletion {
+    color: #82071e;
+    background: #ffebe9;
+}
+
+/* ============ 代码块外观 ============
+   js/lib/highlight.js 现在把「语言标签 + 复制按钮」放在 <pre> 外层，
+   所以这里给外层容器提供定位上下文，并补上对应的内边距。 */
+.code-block {
+    margin: 25px 0;
+    position: relative;
+}
+
+.code-block pre {
+    background: #f6f8fa;
+    border: 1px solid var(--ly-border);
+    border-radius: 12px;
+    box-shadow: none;
+    margin: 0;
+    /* 顶部留出语言标签/复制按钮的位置 */
+    padding-top: 34px;
+}
+
+/* 语言标签：左上角小胶囊 */
+.code-block .language {
+    background: #e7eaef;
+    border-radius: 6px;
+    color: var(--ly-text-soft);
+    font-size: 12px;
+    left: 14px;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    padding: 5px 9px;
+    position: absolute;
+    top: 11px;
+    z-index: 2;
+}
+
+/* 复制按钮：右上角 */
+.code-block .copycode {
+    color: var(--ly-text-soft);
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+}
+
+.code-block .copycode:hover {
+    color: var(--ly-accent);
+}
+
+/* 代码正文：取消主题为「按钮在内部」设计的大上边距 */
+.code-block .code-content {
+    padding: 0 20px;
+}
+
+/* 行号列（客户端 hljs 生成，仅用于无服务端高亮的代码块） */
+.hljs-ln-numbers {
+    border-right: 1px solid var(--ly-border);
+    color: #b6bec9;
+    padding-right: 12px !important;
+    user-select: none;
+}
+
+.hljs-ln-code {
+    padding-left: 14px !important;
+}
+
+/* ---------- 全局底色与文字 / 字体 ---------- */
 body {
     background: var(--ly-bg);
     color: var(--ly-text);
+    font-family: var(--ly-font-sans);
+    /* 系统字体没有 900 那么粗的字重，收敛到 500 避免浏览器伪加粗 */
+    font-weight: 500;
+}
+
+/* 代码使用等宽字体栈（原为 Fira Code） */
+code,
+pre,
+kbd,
+samp,
+.code-content,
+.hljs {
+    font-family: var(--ly-font-mono);
+}
+
+/* 原主题用 Lexend 的 600/700/800/900 字重，系统字体收敛到 700 */
+b,
+strong,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -148,6 +314,26 @@ table:not(.hljs-ln) td:nth-child(odd) {
     background: #ffffff;
 }
 
+/* ---------- 归档 / 分类 / 标签页的页面主标题 ----------
+   主题原本没有给这些页面输出 h1（无障碍与 SEO 都不利），
+   由 _partial/page-heading.ejs 补上，这里控制它的呈现。 */
+#archives #page-heading {
+    color: var(--ly-text);
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 auto 25px;
+    padding-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    #archives #page-heading {
+        font-size: 22px;
+        margin-bottom: 18px;
+    }
+}
+
 /* ---------- 归档页分类/标签胶囊 ---------- */
 #archives .categories-tags span a:hover {
     background: var(--ly-accent-soft);
@@ -216,8 +402,14 @@ table:not(.hljs-ln) td:nth-child(odd) {
     top: 50%;
     right: 4vw;
     transform: translateY(-50%);
-    height: min(76vh, 660px);
+    /* 同时用高度和宽度约束，取更严格的那个：
+       - 高度上限 660px，避免高窗口下卡片过大
+       - 宽度上限 54vw，避免矮窗口（如 1440x680 的笔记本）下照片上下溢出被裁
+       宽高比由图片自身维持，所以两者同时给不会变形。 */
+    height: auto;
     width: auto;
+    max-height: min(76vh, 660px);
+    max-width: 54vw;
     object-fit: contain;
     object-position: center right;
     border-radius: 18px;

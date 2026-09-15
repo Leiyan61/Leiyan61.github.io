@@ -6,6 +6,7 @@
             return catName === 'Diary' ? date(post.date, 'DD/MM/YYYY') : post.title;
         };
     %>
+    <%- partial("_partial/page-heading") %>
     <div class="categories-tags">
         <% site.tags.forEach((tag) => { %>
         <%

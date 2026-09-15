@@ -132,7 +132,7 @@ card:
     GitHub:
       name: github
       theme: brands
-      link: https://github.com/Leiyan61
+      link: https://github.com/Tprme
   friendLinks:
     CTF Wiki: https://ctf-wiki.org/
 
@@ -141,15 +141,17 @@ footer:
   since: 2026
   copyright:
     name: Tprme
-    handle: Leiyan61
+    handle: Tprme
   ICP:
     enable: false
     code:
     link:
 
 # Polyfill（浏览器兼容垫片）
+# 已关闭：polyfill.io 服务于 2024 年被转手并发生过供应链投毒事件，
+# 且 blog 面向现代浏览器，不需要这一层；关闭同时也去掉一个外部依赖。
 polyfill:
-  enable: true
+  enable: false
   features:
     - default
 
@@ -241,6 +243,15 @@ i18n:
   loading_title: 加载中
   loading_message: 正在打开页面…
   crypto_placeholder: 这篇文章已加密，请输入密码。
+  # 图片替代文本（无障碍：屏幕阅读器会读出来）
+  loading_alt: 页面加载动画
+  preview_alt: 放大的图片预览
+  # 归档 / 分类 / 标签页的页面主标题（h1）
+  heading_archives: 归档
+  heading_categories: 分类
+  heading_tags: 标签
+  heading_category_prefix: 分类：
+  heading_tag_prefix: 标签：
 
 # SEO
 seo:

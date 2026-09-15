@@ -1,23 +1,19 @@
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.38/vue.global.prod.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
-/>
+<%#
+  资源全部本地自托管，不再依赖 cdnjs / Google Fonts。
+  原因：这两家在国内网络下不稳定甚至不可达，
+  Vue 加载失败会让页面永远停在「加载中」，Font Awesome 失败则所有图标消失。
+  本地文件见 themes/loststar/source/js/lib/ 与 source/css/fontawesome/。
+%>
+<link rel="stylesheet" href="<%- url_for("/css/fontawesome/css/all.min.css") %>" />
+<script src="<%- url_for("/js/lib/vue.min.js") %>"></script>
 <script> const mixins = {}; </script>
 <% if (theme.polyfill.enable) { %>
 <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=<%- theme.polyfill.features %>"></script>
 <% } %>
 <% if (theme.highlight.enable) { %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/<%- theme.highlight.style %>.min.css"
-/>
+<script src="<%- url_for("/js/lib/highlight.min.js") %>"></script>
+<script src="<%- url_for("/js/lib/highlightjs-line-numbers.js") %>"></script>
+<link rel="stylesheet" href="<%- url_for("/css/hljs-github.min.css") %>" />
 <script src="<%- url_for("/js/lib/highlight.js") %>"></script>
 <% } %>
 <% if (theme.math.enable) { %>
