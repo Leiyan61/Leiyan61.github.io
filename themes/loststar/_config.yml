@@ -181,19 +181,22 @@ search:
   enable: true
 
 # ---------- 评论系统（只启用一种） ----------
-# giscus：基于 GitHub Discussions，免费无需自建服务
+# giscus：基于 GitHub Discussions，免费、无需自建服务端。
+# 读者用 GitHub 账号登录后即可评论，评论以 Discussion 形式存进仓库。
 giscus:
-  enable: false
+  enable: true
   src: https://giscus.app/client.js
-  repo:
-  repoID:
-  category:
-  categoryID:
+  repo: Tprme/Tprme.github.io
+  repoID: R_kgDOUbfxuQ
+  category: Announcements
+  categoryID: DIC_kwDOUbfxuc4DFqnt
+  # pathname：按文章路径匹配讨论，文章改标题不会丢评论
   mapping: pathname
   strict: 0
   reactionsEnabled: 1
   emitMetadata: 0
   inputPosition: bottom
+  # preferred_color_scheme：跟随访客系统的深色/浅色偏好
   theme: preferred_color_scheme
   lang: zh-CN
 

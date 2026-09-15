@@ -314,6 +314,39 @@ table:not(.hljs-ln) td:nth-child(odd) {
     background: #ffffff;
 }
 
+/* ---------- 文章评论区（giscus） ----------
+   主题原本没给评论区写样式，这里让它和文章卡片保持一致的观感。 */
+#comment {
+    background: var(--ly-surface);
+    border: 1px solid var(--ly-border);
+    border-radius: 15px;
+    box-shadow: var(--ly-shadow);
+    box-sizing: border-box;
+    margin: 25px auto 0;
+    padding: 28px 30px;
+    width: 900px;
+}
+
+#comment .giscus,
+#comment .giscus-frame {
+    border: none;
+    width: 100%;
+}
+
+@media (max-width: 1023px) {
+    #comment {
+        width: 800px;
+    }
+}
+
+@media (max-width: 767px) {
+    #comment {
+        border-radius: 12px;
+        padding: 18px 16px;
+        width: 100%;
+    }
+}
+
 /* ---------- 归档页搜索框 ---------- */
 #search-wrap {
     margin: 0 auto 28px;
