@@ -1,0 +1,98 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title: 哈理工 Birkenwald 战队周报
+subtitle: 'Writeup · 赛事复盘 · 战队动态'
+description: '哈理工 Birkenwald 战队官方博客，持续输出每周战报与题目 Writeup'
+keywords: CTF, Writeup, 网络安全, 战队周报, Birkenwald, 哈理工
+author: 哈理工 Birkenwald
+language: zh-CN
+timezone: 'Asia/Shanghai'
+
+# URL
+## 仓库名必须是 Leiyan61.github.io，否则站点会被放到子路径下导致样式 404
+url: https://Leiyan61.github.io
+permalink: posts/:year/:month/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true
+  trailing_html: true
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+  - README.md
+
+# Writing
+new_post_name: :year-:month-:day-:title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: true
+relative_link: false
+future: true
+syntax_highlighter: highlight.js
+
+# ZenMind 主题自带 highlight.js，所以要关掉 Hexo 自带的，否则样式会打架
+highlight:
+  enable: false
+  line_number: false
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  enable: false
+  preprocess: false
+  line_number: false
+  tab_replace: ''
+
+# Home page setting
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+# Category & Tag
+default_category: 周报
+category_map:
+tag_map:
+
+# Metadata elements
+meta_generator: true
+
+# Date / Time format
+date_format: YYYY-MM-DD
+time_format: HH:mm
+updated_option: 'mtime'
+
+# Pagination
+per_page: 10
+pagination_dir: page
+
+# Include / Exclude file(s)
+include:
+exclude:
+ignore:
+
+# Extensions
+theme: ZenMind
+
+# Deployment
+## 本博客用 GitHub Actions 自动部署（见 .github/workflows/deploy.yml），
+## 所以这里不配置 hexo-deployer-git，hexo d 不是必需的。
+deploy:
+  type: ''

@@ -1,0 +1,16 @@
+# 依赖，不进仓库（CI 里用 npm ci 装）
+node_modules/
+
+# Hexo 生成的静态文件，由 CI 构建，不进仓库
+public/
+
+# Hexo 内部缓存
+db.json
+.deploy*/
+*.log
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
