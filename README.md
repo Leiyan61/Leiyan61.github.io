@@ -1,8 +1,6 @@
-# 哈理工 Birkenwald 战队周报博客
-
 基于 **Hexo + ZenMind 主题 + GitHub Actions** 的全自动静态博客：写 Markdown 推到 `main`，自动上线。
 
-- 🌐 博客地址：**https://Leiyan61.github.io**
+- 🌐 博客地址：**https://Tprme.github.io**
 - 📦 仓库地址：https://github.com/Leiyan61/Leiyan61.github.io
 - ⚙️ 自动部署：https://github.com/Leiyan61/Leiyan61.github.io/actions
 
