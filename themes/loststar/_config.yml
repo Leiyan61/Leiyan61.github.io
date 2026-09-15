@@ -252,6 +252,9 @@ i18n:
   heading_tags: 标签
   heading_category_prefix: 分类：
   heading_tag_prefix: 标签：
+  # 归档页搜索框
+  search_placeholder: 搜索文章标题…
+  search_no_result: 没有匹配的文章
 
 # SEO
 seo:

@@ -9,7 +9,19 @@
 <div id="archives">
     <%- partial("_partial/page-heading") %>
     <% if (theme.search.enable) { %>
-    <input id="search-bar" class="input" placeholder="Search" v-model="rawSearch" />
+    <div id="search-wrap">
+        <input
+            id="search-bar"
+            class="input"
+            type="search"
+            placeholder="<%- (theme.i18n && theme.i18n.search_placeholder) || 'Search' %>"
+            aria-label="<%- (theme.i18n && theme.i18n.search_placeholder) || 'Search' %>"
+            v-model="rawSearch"
+        />
+    </div>
+    <p id="search-empty" v-show="searchEmpty">
+        <%- (theme.i18n && theme.i18n.search_no_result) || 'No matching posts' %>
+    </p>
     <% } %>
     <div id="timeline-wrap" ref="timeline">
         <% posts.reverse().forEach((post, id) => { %>
