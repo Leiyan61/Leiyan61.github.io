@@ -182,93 +182,60 @@ table:not(.hljs-ln) td:nth-child(odd) {
 }
 
 /* 左侧渐变底：深蓝灰，和照片里的天空/树林色调呼应。
-   最后一层是「向页面底色渐隐」——首屏底部必须过渡到内容区的近白色(#f7f8fa)，
-   否则深色首屏和白底内容区之间会留一条硬接缝。 */
+   底部不再做渐隐 —— 深色面板与白色内容区之间是一条干净的直线。 */
 #home-head::after {
     content: "";
     position: absolute;
     inset: 0;
-    background:
-        linear-gradient(
-            100deg,
-            #1d2a38 0%,
-            #22313f 38%,
-            #2a3b49 52%,
-            rgba(42, 59, 73, 0.55) 60%,
-            rgba(42, 59, 73, 0) 70%
-        ),
-        linear-gradient(
-            to bottom,
-            rgba(247, 248, 250, 0) 0%,
-            rgba(247, 248, 250, 0) 86%,
-            rgba(247, 248, 250, 0.55) 94%,
-            rgba(247, 248, 250, 1) 100%
-        );
+    background: linear-gradient(
+        100deg,
+        #1d2a38 0%,
+        #22313f 38%,
+        #2a3b49 52%,
+        rgba(42, 59, 73, 0.55) 60%,
+        rgba(42, 59, 73, 0) 70%
+    );
     z-index: -1;
     pointer-events: none;
 }
 
 #home-head #home-background {
     /* 照片改用独立的 <img id="home-photo"> 渲染（见下面），
-       这里只留模糊衬底用的背景图，不再直接显示照片。 */
+       这里只留衬底用的背景图，不再直接显示照片。 */
     background-image: none !important;
     filter: none;
 }
 
-/* ---------- 首屏照片本体 ----------
-   关键：只约束一个维度，另一个由图片比例自然决定，尺寸才唯一确定。
-   这里约束 height:100vh，宽度 = 高度 × 图片宽高比(0.771) 自动得出。
-   如果同时写 width 和 max-height，哪个先触发会随窗口比例变化，
-   照片实际宽度就会和预期不符，边缘羽化(mask)随之错位。 */
+/* ---------- 首屏照片：卡片式 ----------
+   照片作为一张圆角卡片浮在深色面板上，不做任何羽化。
+   这样边界是干净利落的形状，而不是「糊掉一片」的过渡。
+   高度用 min() 加上限，避免窗口很高时卡片被拉得过大。 */
 #home-head #home-photo {
     position: absolute;
-    top: 0;
-    right: 0;
-    height: 100vh;
+    top: 50%;
+    right: 4vw;
+    transform: translateY(-50%);
+    height: min(76vh, 660px);
     width: auto;
     object-fit: contain;
-    object-position: right center;
+    object-position: center right;
+    border-radius: 18px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
     z-index: -1;
     pointer-events: none;
-
-    /* 边缘羽化：左、上、下自然淡出，右侧贴屏幕边保持清晰。
-       注意：照片高度=视口高度，所以上下边缘就在 0%/100%，
-       渐变范围必须往内收，否则羽化落不到照片上。 */
-    -webkit-mask-image:
-        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.5) 6%, #000 22%),
-        linear-gradient(to bottom, transparent 0%, #000 11%, #000 84%, transparent 100%);
-    mask-image:
-        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.5) 6%, #000 22%),
-        linear-gradient(to bottom, transparent 0%, #000 11%, #000 84%, transparent 100%);
-    /* 两张 mask 取交集：只有同时不透明的地方才显示 */
-    -webkit-mask-composite: source-in;
-    mask-composite: intersect;
+    /* 明确关闭羽化 */
+    -webkit-mask-image: none;
+    mask-image: none;
 }
 
-/* 模糊放大的同图铺满首屏做底，让照片边缘自然过渡 */
+/* 首屏底色：一层纯深色面板。
+   卡片式的层次靠照片自身的圆角与阴影表达，不需要模糊衬底。 */
 #home-head::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: var(--ly-bg-image);
-    background-size: cover;
-    background-position: center center;
-    filter: blur(30px) saturate(115%) brightness(0.62);
-    transform: scale(1.12);
+    background: #16202b;
     z-index: -2;
-}
-
-/* 只在照片区域压一层暗角，左侧留白不需要 */
-#home-head #home-background::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        to top,
-        rgba(12, 18, 28, 0.62) 0%,
-        rgba(12, 18, 28, 0.16) 42%,
-        rgba(12, 18, 28, 0) 72%
-    );
 }
 
 /* 标题移到左侧留白区 */
@@ -335,22 +302,19 @@ table:not(.hljs-ln) td:nth-child(odd) {
         );
     }
 
-    /* 手机改成坚屏堆叠：标题在上，照片铺满下半屏宽度 */
+    /* 手机：照片作为卡片放在下半屏 */
     #home-head #home-photo {
         top: auto;
-        bottom: 0;
-        right: 0;
-        /* 窄屏反转约束维度：约束宽度，高度自适应 */
+        bottom: 5vh;
+        right: 50%;
+        margin-right: -42vw;
+        transform: none;
         height: auto;
-        max-height: 60vh;
-        width: 100vw;
-        object-position: center bottom;
-        -webkit-mask-image:
-            linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 8%, #000 30%),
-            linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
-        mask-image:
-            linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.5) 8%, #000 30%),
-            linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+        width: 84vw;
+        max-height: 58vh;
+        object-position: center center;
+        border-radius: 14px;
+        box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
     }
 
     #home-head #home-info {
