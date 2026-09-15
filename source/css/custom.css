@@ -181,19 +181,20 @@ table:not(.hljs-ln) td:nth-child(odd) {
     position: relative;
 }
 
-/* 左侧渐变底：深蓝灰，和照片里的天空/树林色调呼应。
-   底部不再做渐隐 —— 深色面板与白色内容区之间是一条干净的直线。 */
+/* 左侧面板渐变：中蓝灰，比原来的近黑色浅一些，但白字对比度依然充足。
+   照片改成卡片式后是一条硬边，这里不再需要向透明渐隐。 */
 #home-head::after {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
         100deg,
-        #1d2a38 0%,
-        #22313f 38%,
-        #2a3b49 52%,
-        rgba(42, 59, 73, 0.55) 60%,
-        rgba(42, 59, 73, 0) 70%
+        #2e4257 0%,
+        #344a61 38%,
+        #3d556e 52%,
+        #445d78 66%,
+        #4a6480 82%,
+        #4f6a87 100%
     );
     z-index: -1;
     pointer-events: none;
@@ -221,20 +222,22 @@ table:not(.hljs-ln) td:nth-child(odd) {
     object-position: center right;
     border-radius: 18px;
     box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
-    z-index: -1;
+    /* 用正 z-index，确保照片盖在面板渐变层(#home-head::after)之上。
+       两者都是 -1 时，::after 因 DOM 顺序更靠后而会盖住照片。 */
+    z-index: 1;
     pointer-events: none;
     /* 明确关闭羽化 */
     -webkit-mask-image: none;
     mask-image: none;
 }
 
-/* 首屏底色：一层纯深色面板。
+/* 首屏底色：一层纯中蓝灰面板（P2 #27384c）。
    卡片式的层次靠照片自身的圆角与阴影表达，不需要模糊衬底。 */
 #home-head::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: #16202b;
+    background: #27384c;
     z-index: -2;
 }
 
@@ -290,15 +293,16 @@ table:not(.hljs-ln) td:nth-child(odd) {
     display: none !important;
 }
 
-/* 窄屏改成上下布局：上面留白放标题，下面放照片 */
+/* 窄屏改成上下布局：上面放标题，下面放照片卡片 */
 @media (max-width: 767px) {
     #home-head::after {
         background: linear-gradient(
             to bottom,
-            #1d2a38 0%,
-            #22313f 34%,
-            rgba(42, 59, 73, 0.6) 46%,
-            rgba(42, 59, 73, 0) 58%
+            #2e4257 0%,
+            #344a61 30%,
+            #3d556e 48%,
+            #455e79 66%,
+            #4a6480 100%
         );
     }
 
