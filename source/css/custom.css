@@ -198,26 +198,111 @@ a {
     color: var(--ly-accent);
 }
 
-/* ---------- 加载页 ---------- */
-/* 渐进增强：默认隐藏。
-   若 cdnjs 上的 Vue 加载失败（国内网络可能发生），加载层会永远盖住页面，
-   访客只能看到一张卡死的"加载中"。这里默认隐藏，Vue 挂载后再由它控制显隐，
-   这样即使 JS 没加载，正文也照常可见。 */
+/* ---------- 加载界面 ----------
+   显隐完全由 Vue 的 v-show 控制（不要在这个元素上加内联 style，
+   否则会和 v-show 争夺 style.display，导致加载层永远挡住页面）。
+   v-show=false 时 Vue 会写 display:none，v-show=true 时写 display:flex，
+   所以这里把布局样式定义成 flex，供它使用。 */
 #loading {
-    display: none;
+    align-items: center;
     background: var(--ly-bg);
-}
-
-/* Vue 挂载后会操作内联 display，此时让加载层正常工作 */
-#loading[style*="display: flex"],
-#loading[style*="display:flex"],
-#loading[style*="display: block"],
-#loading[style*="display:block"] {
-    display: flex !important;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
 }
 
 #loading-circle {
-    border-color: var(--ly-accent-soft);
+    align-items: center;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* 头像 + 旋转光环：光环用 conic-gradient 做出「缺口」效果 */
+#loading-circle::before {
+    animation: ly-spin 0.9s linear infinite;
+    background: conic-gradient(
+        from 0deg,
+        rgba(59, 130, 246, 0) 0deg,
+        rgba(59, 130, 246, 0.15) 200deg,
+        var(--ly-accent) 340deg,
+        var(--ly-accent) 360deg
+    );
+    border-radius: 50%;
+    content: "";
+    height: 76px;
+    margin-bottom: 22px;
+    position: relative;
+    width: 76px;
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+}
+
+@keyframes ly-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 尊重系统的「减少动态效果」设置 */
+@media (prefers-reduced-motion: reduce) {
+    #loading-circle::before {
+        animation-duration: 2.4s;
+    }
+}
+
+#loading-circle h2 {
+    color: var(--ly-text);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    margin: 0 0 8px;
+}
+
+#loading-circle p {
+    color: var(--ly-text-soft);
+    font-size: 13px;
+    margin: 0;
+}
+
+/* 主题自带的 loading.gif 是个卡通图，和站点风格不搭，隐藏掉 */
+#loading-circle img {
+    display: none;
+}
+
+/* 细进度条：等宽循环，给"还在加载"一个持续的视觉反馈 */
+#loading-circle::after {
+    animation: ly-progress 1.4s ease-in-out infinite;
+    background: linear-gradient(90deg, transparent, var(--ly-accent), transparent);
+    border-radius: 2px;
+    content: "";
+    height: 2px;
+    margin-top: 24px;
+    width: 108px;
+}
+
+@keyframes ly-progress {
+    0% {
+        opacity: 0.25;
+        transform: scaleX(0.35);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+
+    100% {
+        opacity: 0.25;
+        transform: scaleX(0.35);
+    }
 }
 
 /* ---------- 顶部导航：白底毛玻璃 ---------- */

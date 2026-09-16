@@ -92,6 +92,10 @@
 <body>
     <div id="layout">
         <transition name="fade">
+            <%# 加载层。
+               注意：这里绝对不能再加内联 style，
+               否则会和 v-show 争夺同一个 style.display，导致 v-show 失效、
+               加载层永远挡住页面（踩过这个坑）。显隐完全交给 v-show 控制。 %>
             <div id="loading" v-show="loading">
                 <div id="loading-circle">
                     <h2><%- (theme.i18n && theme.i18n.loading_title) || 'LOADING' %></h2>

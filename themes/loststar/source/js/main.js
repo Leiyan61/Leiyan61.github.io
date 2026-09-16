@@ -11,9 +11,22 @@ const app = Vue.createApp({
         };
     },
     created() {
-        window.addEventListener("load", () => {
+        /* 关闭加载层。
+           注意这里必须判断 readyState，不能只挂 load 监听：
+           Vue 在 DOMContentLoaded 之后才挂载，若此时 load 事件已经触发过
+           （本地打开或缓存命中时很常见），再注册监听就永远等不到回调，
+           加载层会一直挡住页面。 */
+        const hide = () => {
             this.loading = false;
-        });
+        };
+        if (document.readyState === "complete") {
+            hide();
+        } else {
+            window.addEventListener("load", hide);
+            /* 兜底：极端情况下（某个资源一直挂起）load 可能迟迟不来，
+               最多等 2.5 秒就放行，避免页面被加载层锁死。 */
+            setTimeout(hide, 2500);
+        }
     },
     mounted() {
         window.addEventListener("scroll", this.handleScroll, true);
