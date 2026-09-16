@@ -63,7 +63,7 @@ themes/loststar/
 ## 常用命令
 
 ```bash
-npm run server   # 本地预览
-npm run build    # 生成网页到 public/
-npm run clean    # 清理生成的文件
+npm run server  
+npm run build  /
+npm run clean    
 ```
