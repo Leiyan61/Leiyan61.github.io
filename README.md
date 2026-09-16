@@ -64,6 +64,6 @@ themes/loststar/
 
 ```bash
 npm run server  
-npm run build  /
+npm run build 
 npm run clean    
 ```
