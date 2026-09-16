@@ -46,7 +46,7 @@ relative_link: false
 future: true
 syntax_highlighter: highlight.js
 
-# ZenMind 主题自带 highlight.js，所以要关掉 Hexo 自带的，否则样式会打架
+# LostStar 主题用 highlight.js 客户端高亮，关掉 Hexo 自带的，避免两套样式打架
 highlight:
   enable: false
   line_number: false
