@@ -82,8 +82,11 @@
     <meta name="theme-color" content="#27384c" />
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <link rel="icon" href="<%- url_for(theme.avatar) %>" />
-    <link rel="apple-touch-icon" href="<%- url_for(theme.avatar) %>" />
+    <%# 站点图标：用真正的 .ico / .png，
+        之前直接拿头像 me.jpg 当图标，部分浏览器（尤其 Safari）不认 %>
+    <link rel="icon" href="<%- url_for('/favicon.ico') %>" sizes="any" />
+    <link rel="icon" type="image/png" href="<%- url_for('/images/me.jpg') %>" />
+    <link rel="apple-touch-icon" href="<%- url_for('/apple-touch-icon.png') %>" />
     <%- partial("import", { type }) %>
 </head>
 <body>
