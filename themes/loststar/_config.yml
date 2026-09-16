@@ -259,6 +259,11 @@ i18n:
   # 归档页搜索框
   search_placeholder: 搜索文章标题…
   search_no_result: 没有匹配的文章
+  # 404 页面
+  notfound_title: 这个页面不存在
+  notfound_desc: 链接可能已经失效，或者地址打错了。
+  notfound_home: 回到首页
+  notfound_archives: 看看所有文章
 
 # SEO
 seo:

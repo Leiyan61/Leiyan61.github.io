@@ -1,0 +1,7 @@
+# 允许所有爬虫抓取
+User-agent: *
+Allow: /
+
+# 站点地图（同时提供 xml 和 txt 两种格式）
+Sitemap: https://Tprme.github.io/sitemap.xml
+Sitemap: https://Tprme.github.io/sitemap.txt
