@@ -53,11 +53,11 @@ tags:
 ## 目录说明
 
 ```
-source/_posts/       文章都放这里，一个 .md 文件就是一篇
-source/about/        "关于"页面
-_config.yml          站点配置（标题、网址等）
-themes/loststar/     主题文件
-.github/workflows/   自动部署的配置
+source/_posts/       
+source/about/       
+_config.yml          
+themes/loststar/    
+.github/workflows/  
 ```
 
 ## 常用命令
