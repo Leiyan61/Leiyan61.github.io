@@ -64,7 +64,9 @@
         description: seoDescription,
         keywords: seoKeywords,
         image: seoImage,
-        twitter_card: 'summary_large_image',
+        /* 头像是正方形，用 summary 而不是 summary_large_image，
+           否则在部分平台（微信/QQ 分享卡片）会被拉伸变形 */
+        twitter_card: 'summary',
         twitter_site: (theme.seo && theme.seo.twitter_site) || '',
         twitter_image: seoImage,
         fb_admins: (theme.seo && theme.seo.fb_admins) || '',
@@ -74,7 +76,14 @@
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     />
+    <%# 移动端优化：
+        theme-color 让手机浏览器的地址栏/状态栏跟随站点主色；
+        format-detection 避免浏览器把页面里的数字误识别成电话号码并加上蓝色下划线 %>
+    <meta name="theme-color" content="#27384c" />
+    <meta name="format-detection" content="telephone=no,email=no,address=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <link rel="icon" href="<%- url_for(theme.avatar) %>" />
+    <link rel="apple-touch-icon" href="<%- url_for(theme.avatar) %>" />
     <%- partial("import", { type }) %>
 </head>
 <body>
